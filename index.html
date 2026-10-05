@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TaskFlow — Focus. Finish. Flow.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+      <div class="brand-logo">✓</div>
+
+      <div>
+        <h2>TaskFlow</h2>
+        <span>Focus. Finish. Flow.</span>
+      </div>
+    </div>
+
+    <button class="new-task-btn" id="newTaskBtn">
+      <span class="plus">＋</span>
+      <span>New Task</span>
+      <kbd>⌘ N</kbd>
+    </button>
+
+    <nav class="navigation">
+
+      <button class="nav-item active" data-filter="all">
+        <span class="nav-icon">▦</span>
+        <span>All Tasks</span>
+        <strong id="allCount">0</strong>
+      </button>
+
+      <button class="nav-item" data-filter="active">
+        <span class="nav-icon">◷</span>
+        <span>Active Tasks</span>
+        <strong id="activeCount">0</strong>
+      </button>
+
+      <button class="nav-item" data-filter="completed">
+        <span class="nav-icon">✓</span>
+        <span>Completed</span>
+        <strong id="completedCount">0</strong>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="progress-card">
+
+        <div class="small-label">TODAY</div>
+
+        <div class="progress-value" id="progressPercent">
+          0%
+        </div>
+
+        <div class="progress-line">
+          <span id="progressBar"></span>
+        </div>
+
+        <p id="progressText">
+          No tasks yet
+        </p>
+
+      </div>
+
+      <div class="workspace">
+
+        <div class="workspace-avatar">
+          TF
+        </div>
+
+        <div class="workspace-info">
+          <strong>My Workspace</strong>
+          <span>Personal productivity</span>
+        </div>
+
+        <button id="settingsBtn" class="settings-btn">
+          ⚙
+        </button>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="breadcrumbs">
+        <span>Workspace</span>
+        <b>/</b>
+        <strong>My Tasks</strong>
+      </div>
+
+      <div class="top-actions">
+
+        <button
+          class="top-btn"
+          id="themeBtn"
+          title="Toggle theme"
+        >
+          ☼
+        </button>
+
+        <button
+          class="top-btn mobile-menu"
+          id="menuBtn"
+        >
+          ☰
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <section class="content">
+
+      <!-- HERO -->
+
+      <div class="hero">
+
+        <div>
+
+          <span class="section-label">
+            PERSONAL WORKSPACE
+          </span>
+
+          <h1>
+            My Tasks
+          </h1>
+
+          <p>
+            Turn your thoughts into focused progress,
+            one task at a time.
+          </p>
+
+        </div>
+
+        <div class="task-summary">
+
+          <strong id="visibleTotal">
+            0
+          </strong>
+
+          <span>
+            visible tasks
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- DASHBOARD -->
+
+      <div class="dashboard-grid">
+
+        <!-- TASK AREA -->
+
+        <section class="tasks-area">
+
+          <!-- TOOLBAR -->
+
+          <div class="toolbar">
+
+            <div class="search-box">
+
+              <span>⌕</span>
+
+              <input
+                id="searchInput"
+                type="search"
+                placeholder="Search tasks..."
+              />
+
+              <kbd>/</kbd>
+
+            </div>
+
+
+            <div class="filters">
+
+              <button
+                class="filter active"
+                data-filter="all"
+              >
+                All
+              </button>
+
+              <button
+                class="filter"
+                data-filter="active"
+              >
+                Active
+              </button>
+
+              <button
+                class="filter"
+                data-filter="completed"
+              >
+                Completed
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- TASK LIST -->
+
+          <div
+            class="task-list"
+            id="taskList"
+          ></div>
+
+
+          <!-- ADD TASK -->
+
+          <div class="task-composer">
+
+            <span class="composer-icon">
+              ＋
+            </span>
+
+            <input
+              id="taskInput"
+              type="text"
+              maxlength="160"
+              placeholder="What do you need to get done?"
+            />
+
+            <button id="addTaskBtn">
+              Add Task
+            </button>
+
+          </div>
+
+          <div class="composer-help">
+            Press <kbd>Enter</kbd> to add
+            ·
+            <kbd>⌘ N</kbd> to focus
+          </div>
+
+        </section>
+
+
+        <!-- ================= CHAT ================= -->
+
+        <aside class="chat-panel">
+
+          <div class="chat-header">
+
+            <div>
+
+              <h3>
+                Quick Capture
+              </h3>
+
+              <p>
+                Drop an idea here and turn it into a task.
+              </p>
+
+            </div>
+
+            <span class="online-dot"></span>
+
+          </div>
+
+
+          <div
+            class="chat-body"
+            id="chatMessages"
+          >
+
+            <div class="welcome-message">
+
+              <div class="bot-icon">
+                T
+              </div>
+
+              <div>
+
+                <div class="bot-bubble">
+                  Hi! Capture anything on your mind.
+                  You can turn each message into a task
+                  when you're ready.
+                </div>
+
+                <small>
+                  TaskFlow · Local mode
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="chat-input-area">
+
+            <input
+              id="chatInput"
+              type="text"
+              maxlength="160"
+              placeholder="Type an idea..."
+            />
+
+            <button id="sendChat">
+              ➤
+            </button>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<dialog id="settingsModal" class="settings-modal">
+
+  <div class="modal-header">
+
+    <div>
+      <span class="section-label">
+        PREFERENCES
+      </span>
+
+      <h2>
+        Settings
+      </h2>
+    </div>
+
+    <button
+      id="closeSettings"
+      class="close-btn"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <div class="setting">
+
+    <div>
+      <strong>
+        Clear all tasks
+      </strong>
+
+      <p>
+        Remove every task from this workspace.
+      </p>
+    </div>
+
+    <button
+      id="clearTasks"
+      class="danger-btn"
+    >
+      Clear
+    </button>
+
+  </div>
+
+
+  <div class="setting">
+
+    <div>
+      <strong>
+        Reset chat
+      </strong>
+
+      <p>
+        Remove all Quick Capture messages.
+      </p>
+    </div>
+
+    <button
+      id="resetChat"
+      class="secondary-btn"
+    >
+      Reset
+    </button>
+
+  </div>
+
+</dialog>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
